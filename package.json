@@ -1,0 +1,9 @@
+{
+  "name": "go-novu",
+  "version": "0.0.1",
+  "dependencies": {
+    "semantic-release": "^19.0.2",
+    "@semantic-release/exec": "^6.0.3",
+    "conventional-changelog-conventionalcommits": "^4.6.3"
+  }
+}
