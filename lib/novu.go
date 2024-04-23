@@ -29,9 +29,10 @@ type RetryConfigType struct {
 }
 
 type Config struct {
-	BackendURL  *url.URL
-	HttpClient  *http.Client
-	RetryConfig *RetryConfigType
+	BackendURL        *url.URL
+	HttpClient        *http.Client
+	HttpClientHeaders map[string]string
+	RetryConfig       *RetryConfigType
 }
 
 type APIClient struct {
@@ -51,7 +52,7 @@ type APIClient struct {
 	IntegrationsApi  *IntegrationService
 	InboundParserApi *InboundParserService
 	LayoutApi        *LayoutService
-	TenantApi	       *TenantService
+	TenantApi        *TenantService
 }
 
 type service struct {
@@ -119,6 +120,13 @@ func (c APIClient) sendRequest(req *http.Request, resp interface{}) (*http.Respo
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", fmt.Sprintf("ApiKey %s", c.apiKey))
 	req.Header.Set("Idempotency-Key", uuid.New().String())
+
+	headers := c.config.HttpClientHeaders
+	if headers != nil {
+		for header, value := range headers {
+			req.Header.Set(header, value)
+		}
+	}
 
 	res, err := c.config.HttpClient.Do(req)
 	if err != nil {
