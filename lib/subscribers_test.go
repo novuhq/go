@@ -388,8 +388,10 @@ func TestSubscriberService_MarkMessageSeen(t *testing.T) {
 
 	opts := lib.SubscriberMarkMessageSeenOptions{
 		MessageID: "message_id",
-		Seen:      true,
-		Read:      true,
+		Mark: lib.SubscriberMarkMessageSeenMark{
+			Seen: true,
+			Read: true,
+		},
 	}
 
 	httpServer := createTestServer(t, TestServerOptions[lib.SubscriberMarkMessageSeenOptions, *lib.SubscriberNotificationFeedResponse]{
