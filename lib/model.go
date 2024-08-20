@@ -239,10 +239,14 @@ type SubscriberUnseenCountOptions struct {
 	Seen *bool `json:"seen"`
 }
 
+type SubscriberMarkMessageSeenMark struct {
+	Seen bool `json:"seen"`
+	Read bool `json:"read"`
+}
+
 type SubscriberMarkMessageSeenOptions struct {
-	MessageID string `json:"messageId"`
-	Seen      bool   `json:"seen"`
-	Read      bool   `json:"read"`
+	MessageID string                        `json:"messageId"`
+	Mark      SubscriberMarkMessageSeenMark `json:"mark"`
 }
 
 type NotificationFeedData struct {
@@ -546,9 +550,8 @@ type ChangesApplyResponse struct {
 	Data []ChangesGetResponseData `json:"data,omitempty"`
 }
 
-
 type UpdateTenantRequest struct {
-	Name 	 string `json:"name"`
-	Data 	 map[string]interface{} `json:"data"`
-	Identifier string `json:"identifier"`
+	Name       string                 `json:"name"`
+	Data       map[string]interface{} `json:"data"`
+	Identifier string                 `json:"identifier"`
 }
