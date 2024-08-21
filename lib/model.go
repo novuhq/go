@@ -19,9 +19,11 @@ const (
 )
 
 const (
-	EMAIL  ChannelType = "EMAIL"
-	SMS    ChannelType = "SMS"
-	DIRECT ChannelType = "DIRECT"
+	INAPP ChannelType = "in_app"
+	EMAIL ChannelType = "email"
+	SMS   ChannelType = "sms"
+	CHAT  ChannelType = "chat"
+	PUSH  ChannelType = "push"
 )
 
 const (
@@ -157,15 +159,22 @@ type Preference struct {
 }
 
 type Channel struct {
-	Email bool `json:"email"`
-	Sms   bool `json:"sms"`
-	Chat  bool `json:"chat"`
-	InApp bool `json:"in_app"`
-	Push  bool `json:"push"`
+	Email *bool `json:"email,omitempty"`
+	Sms   *bool `json:"sms,omitempty"`
+	Chat  *bool `json:"chat,omitempty"`
+	InApp *bool `json:"in_app,omitempty"`
+	Push  *bool `json:"push,omitempty"`
 }
 
 type SubscriberPreferencesResponse struct {
 	Data []struct {
+		Template   Template   `json:"template"`
+		Preference Preference `json:"preference"`
+	} `json:"data"`
+}
+
+type UpdateSubscriberPreferencesResponse struct {
+	Data struct {
 		Template   Template   `json:"template"`
 		Preference Preference `json:"preference"`
 	} `json:"data"`
@@ -177,8 +186,8 @@ type UpdateSubscriberPreferencesChannel struct {
 }
 
 type UpdateSubscriberPreferencesOptions struct {
-	Channel []UpdateSubscriberPreferencesChannel `json:"channel,omitempty"`
-	Enabled bool                                 `json:"enabled,omitempty"`
+	Channel *UpdateSubscriberPreferencesChannel `json:"channel,omitempty"`
+	Enabled *bool                               `json:"enabled,omitempty"`
 }
 
 type ListTopicsResponse struct {

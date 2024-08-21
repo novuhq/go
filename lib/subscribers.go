@@ -23,7 +23,7 @@ type ISubscribers interface {
 	GetUnseenCount(ctx context.Context, subscriberID string, opts *SubscriberUnseenCountOptions) (*SubscriberUnseenCountResponse, error)
 	MarkMessageSeen(ctx context.Context, subscriberID string, opts SubscriberMarkMessageSeenOptions) (*SubscriberNotificationFeedResponse, error)
 	GetPreferences(ctx context.Context, subscriberID string) (*SubscriberPreferencesResponse, error)
-	UpdatePreferences(ctx context.Context, subscriberID string, templateId string, opts *UpdateSubscriberPreferencesOptions) (*SubscriberPreferencesResponse, error)
+	UpdatePreferences(ctx context.Context, subscriberID string, templateId string, opts *UpdateSubscriberPreferencesOptions) (*UpdateSubscriberPreferencesResponse, error)
 }
 
 type SubscriberService service
@@ -234,8 +234,8 @@ func (s *SubscriberService) GetUnseenCount(ctx context.Context, subscriberID str
 	return &resp, nil
 }
 
-func (s *SubscriberService) UpdatePreferences(ctx context.Context, subscriberID string, templateId string, opts *UpdateSubscriberPreferencesOptions) (*SubscriberPreferencesResponse, error) {
-	var resp SubscriberPreferencesResponse
+func (s *SubscriberService) UpdatePreferences(ctx context.Context, subscriberID string, templateId string, opts *UpdateSubscriberPreferencesOptions) (*UpdateSubscriberPreferencesResponse, error) {
+	var resp UpdateSubscriberPreferencesResponse
 	URL := s.client.config.BackendURL.JoinPath("subscribers", subscriberID, "preferences", templateId)
 
 	var reqBody io.Reader = http.NoBody
